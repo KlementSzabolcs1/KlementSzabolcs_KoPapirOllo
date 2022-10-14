@@ -43,7 +43,7 @@
         android:layout_below="@+id/gepKep"
         android:layout_centerHorizontal="true"
         android:id="@+id/gepValasztas"
-        android:text="A te választásod"
+        android:text="A gép választása"
         android:textSize="35dp"
 
         />
@@ -54,14 +54,14 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/eredmeny"
         android:text="Eredmény: Ember: 0 Computer: 0"
-        android:textSize="25dp"
+        android:textSize="23dp"
 
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gombKo"
+        android:id="@+id/gombPapir"
         android:layout_below="@+id/eredmeny"
         android:layout_centerHorizontal="true"
         android:text="Papír"
@@ -73,8 +73,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gombPapir"
-        android:layout_toStartOf="@+id/gombKo"
+        android:id="@+id/gombKo"
+        android:layout_toStartOf="@+id/gombPapir"
         android:layout_below="@+id/eredmeny"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="25dp"
@@ -91,7 +91,7 @@
         android:layout_below="@+id/eredmeny"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="25dp"
-        android:layout_toEndOf="@+id/gombKo"
+        android:layout_toEndOf="@+id/gombPapir"
         android:text="Olló"
         android:textSize="16sp"
 

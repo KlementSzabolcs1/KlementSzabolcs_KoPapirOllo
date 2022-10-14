@@ -24,12 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private Button ko;
     private Button papir;
     private Button ollo;
-    private Toast toast;
-    private int gyozelem = 0;
-    private int vereseg = 0;
+    private int gyozelem;
+    private int vereseg;
     private AlertDialog.Builder alert;
-
-
 
 
     @Override
@@ -37,132 +34,211 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        if (gyozelem == 3 || vereseg == 3) {
-            alert.setMessage("Szeretne új játékot kezdeni?");
-
-            if (gyozelem == 3) {
-                alert.setTitle("Győzelem");
-                alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        reload();
-
-                    }
-                });
-                alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-
-            } else {
-                alert.setTitle("Vereség");
-                alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        reload();
-
-                    }
-                });
-                alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                });
-
-            }
-
-        }
         addListeners();
+
     }
+
     //1 - ko 2 - papir 3 - ollo
     private void addListeners() {
         ko.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-                float veletlen = Math.round(Math.random()*3+1);
-                jatekosKep.setImageResource(R.drawable.rock);
-                if (veletlen == 1) {
-                    gepKep.setImageResource(R.drawable.rock);
-                    toast.setText("Döntetlen");
-                } else if (veletlen == 2) {
-                    gepKep.setImageResource(R.drawable.paper);
-                    toast.setText("Vereség");
-                    vereseg++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
+                    float veletlen = Math.round(Math.random() * 3 + 1);
+                    jatekosKep.setImageResource(R.drawable.rock);
+                    if (veletlen == 1) {
+                        gepKep.setImageResource(R.drawable.rock);
+                        Toast.makeText(MainActivity.this, "Döntetlen", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    gepKep.setImageResource(R.drawable.scissors);
-                    toast.setText("Győzelem");
-                    gyozelem++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
+                    } else if (veletlen == 2) {
+
+                        gepKep.setImageResource(R.drawable.paper);
+                        Toast.makeText(MainActivity.this, "Vereség", Toast.LENGTH_SHORT).show();
+                        vereseg++;
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+                    } else {
+                        gepKep.setImageResource(R.drawable.scissors);
+                        gyozelem++;
+                        Toast.makeText(MainActivity.this, "Győzelem", Toast.LENGTH_SHORT).show();
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+
+                    }
+                if (gyozelem == 3 || vereseg == 3) {
+                    if (gyozelem == 3) {
+                        alert.setCancelable(false);
+                        alert.create();
+                        alert.setTitle("Győzelem");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+
+                        alert.show();
+                    } else if (vereseg == 3) {
+                        alert.setCancelable(false);
+                        alert.create();
+                        alert.setTitle("Vereség");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+
+                        alert.show();
+                    }
                 }
-
-
-
             }
-        });
+             });
 
         papir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float veletlen = Math.round(Math.random()*3+1);
-                jatekosKep.setImageResource(R.drawable.paper);
-                if (veletlen == 1) {
-                    gepKep.setImageResource(R.drawable.rock);
-                    toast.setText("Győzelem");
-                    gyozelem++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
-                } else if (veletlen == 2) {
-                    gepKep.setImageResource(R.drawable.paper);
-                    toast.setText("Döntetlen");
 
-                } else {
-                    gepKep.setImageResource(R.drawable.scissors);
-                    toast.setText("Vereség");
-                    vereseg++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
+                    float veletlen = Math.round(Math.random() * 3 + 1);
+                    jatekosKep.setImageResource(R.drawable.paper);
+                    if (veletlen == 1) {
+
+                        gepKep.setImageResource(R.drawable.rock);
+                        Toast.makeText(MainActivity.this, "Győzelem", Toast.LENGTH_SHORT).show();
+                        gyozelem++;
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+                    } else if (veletlen == 2) {
+                        gepKep.setImageResource(R.drawable.paper);
+                        Toast.makeText(MainActivity.this, "Döntetlen", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        gepKep.setImageResource(R.drawable.scissors);
+                        Toast.makeText(MainActivity.this, "Vereség", Toast.LENGTH_SHORT).show();
+                        vereseg++;
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+                    }
+                if (gyozelem == 3 || vereseg == 3) {
+                    if (gyozelem == 3) {
+                        alert.setCancelable(false);
+                        alert.setTitle("Győzelem");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+
+                    } else if (vereseg == 3) {
+                        alert.setCancelable(false);
+                        alert.setTitle("Vereség");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+                    }
                 }
-
             }
         });
 
         ollo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                float veletlen = Math.round(Math.random()*3+1);
-                jatekosKep.setImageResource(R.drawable.scissors);
-                if (veletlen == 1) {
-                    gepKep.setImageResource(R.drawable.rock);
-                    toast.setText("Vereség");
-                    vereseg++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
-                } else if (veletlen == 2) {
-                    gepKep.setImageResource(R.drawable.paper);
-                    toast.setText("Győzelem");
-                    gyozelem++;
-                    eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
-                            vereseg);
-                } else {
-                    gepKep.setImageResource(R.drawable.scissors);
-                    toast.setText("Döntetlen");
 
+                    float veletlen = Math.round(Math.random() * 3 + 1);
+                    jatekosKep.setImageResource(R.drawable.scissors);
+                    if (veletlen == 1) {
+                        gepKep.setImageResource(R.drawable.rock);
+                        Toast.makeText(MainActivity.this, "Vereség", Toast.LENGTH_SHORT).show();
+                        vereseg++;
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+                    } else if (veletlen == 2) {
+                        gepKep.setImageResource(R.drawable.paper);
+                        Toast.makeText(MainActivity.this, "Győzelem", Toast.LENGTH_SHORT).show();
+                        gyozelem++;
+                        eredmeny.setText("Eredmény: Ember: " + gyozelem + " Computer: " +
+                                vereseg);
+                    } else {
+                        gepKep.setImageResource(R.drawable.scissors);
+                        Toast.makeText(MainActivity.this, "Döntetlen", Toast.LENGTH_SHORT).show();
+
+                    }
+                if (gyozelem == 3 || vereseg == 3) {
+                    if (gyozelem == 3) {
+                        alert.setCancelable(false);
+                        alert.setTitle("Győzelem");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+
+                    } else if (vereseg == 3) {
+                        alert.setCancelable(false);
+                        alert.setTitle("Vereség");
+                        alert.setMessage("Szeretne új játékot kezdeni?");
+                        alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                reload();
+
+                            }
+                        });
+                        alert.setNegativeButton("Nem", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+                    }
                 }
-
             }
         });
-
-
-
     }
+
 
     public void reload() {
         Intent intent = getIntent();
@@ -176,18 +252,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
 
-    jatekosKep = findViewById(R.id.jatekosKep);
-    gepKep = findViewById(R.id.gepKep);
-    gepValasztas = findViewById(R.id.gepValasztas);
-    jatekosValasztas = findViewById(R.id.jatekosValasztas);
-    eredmeny = findViewById(R.id.eredmeny);
-    ko = findViewById(R.id.gombKo);
-    papir = findViewById(R.id.gombPapir);
-    ollo = findViewById(R.id.gombOllo);
-    alert = new AlertDialog.Builder(MainActivity.this);
-
-
-
+        jatekosKep = findViewById(R.id.jatekosKep);
+        gepKep = findViewById(R.id.gepKep);
+        gepValasztas = findViewById(R.id.gepValasztas);
+        jatekosValasztas = findViewById(R.id.jatekosValasztas);
+        eredmeny = findViewById(R.id.eredmeny);
+        ko = findViewById(R.id.gombKo);
+        papir = findViewById(R.id.gombPapir);
+        ollo = findViewById(R.id.gombOllo);
+        alert = new AlertDialog.Builder(MainActivity.this);
+        gyozelem = 0;
+        vereseg = 0;
 
 
     }
